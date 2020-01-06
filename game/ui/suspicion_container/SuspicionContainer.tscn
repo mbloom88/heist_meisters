@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/suspicion_container/themes/suspicion_meter.theme" type="Theme" id=1]
+[ext_resource path="res://assets/GFX/Interface/PNG/glassPanel_cornerTL.png" type="Texture" id=2]
+[ext_resource path="res://ui/suspicion_container/scripts/suspicion_container.gd" type="Script" id=3]
+[ext_resource path="res://assets/GFX/Interface/PNG/barVertical_shadow_mid.png" type="Texture" id=4]
+[ext_resource path="res://assets/GFX/Interface/PNG/barVertical_red_mid.png" type="Texture" id=5]
+
+[node name="SuspicionContainer" type="NinePatchRect" groups=[
+"suspicion_meter",
+]]
+margin_right = 300.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 300, 150 )
+theme = ExtResource( 1 )
+texture = ExtResource( 2 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+script = ExtResource( 3 )
+gain = 0.5
+decay = 2.0
+decay_rate = 0.5
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+margin_left = 10.0
+margin_top = 41.0
+margin_right = 249.0
+margin_bottom = 68.0
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer"]
+margin_right = 135.0
+margin_bottom = 27.0
+text = "Suspicion"
+
+[node name="Meter" type="TextureProgress" parent="CenterContainer/HBoxContainer"]
+margin_left = 139.0
+margin_right = 239.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 100, 20 )
+mouse_filter = 2
+value = 50.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
+nine_patch_stretch = true
+
+[node name="SuspicionDecayTimer" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="SuspicionDecayTimer" to="." method="_on_SuspicionDecayTimer_timeout"]

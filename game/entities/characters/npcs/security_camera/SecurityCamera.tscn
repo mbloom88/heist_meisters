@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://entities/characters/npcs/security_camera/scripts/security_camera.gd" type="Script" id=1]
+[ext_resource path="res://assets/GFX/PNG/Tiles/tile_463.png" type="Texture" id=2]
+[ext_resource path="res://entities/characters/npcs/security_camera/animations/SETUP.anim" type="Animation" id=3]
+[ext_resource path="res://entities/characters/npcs/security_camera/animations/scan.anim" type="Animation" id=4]
+[ext_resource path="res://entities/characters/npcs/scripts/stationary_npc.gd" type="Script" id=5]
+[ext_resource path="res://assets/GFX/PNG/Tiles/tile_536.png" type="Texture" id=6]
+[ext_resource path="res://entities/flashlight/Flashlight.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5.40886, 6.11899 )
+
+[node name="SecurityCamera" type="Node2D" groups=[
+"npcs",
+]]
+script = ExtResource( 1 )
+
+[node name="Arm" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="Pivot" type="Position2D" parent="."]
+position = Vector2( 5.0105, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot"]
+anims/SETUP = ExtResource( 3 )
+anims/scan = ExtResource( 4 )
+
+[node name="Body" type="KinematicBody2D" parent="Pivot"]
+position = Vector2( 11.7919, 0 )
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 5 )
+fov_tolerance = 20.0
+detection_distance = 640.0
+
+[node name="Lens" type="Sprite" parent="Pivot/Body"]
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Body"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Flashlight" parent="Pivot/Body" instance=ExtResource( 7 )]
+position = Vector2( 11.4403, 0 )
