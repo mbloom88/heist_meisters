@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entities/characters/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/characters/player/scripts/player.gd" type="Script" id=2]
 [ext_resource path="res://assets/GFX/PNG/Hitman 1/hitman1_stand.png" type="Texture" id=3]
-[ext_resource path="res://assets/GFX/PNG/Tiles/tile_129.png" type="Texture" id=4]
+[ext_resource path="res://entities/characters/light_occluders/character_occluder.tres" type="OccluderPolygon2D" id=4]
+[ext_resource path="res://entities/characters/collision_shapes/character_collision_shape.tres" type="Shape2D" id=5]
+[ext_resource path="res://assets/GFX/PNG/Tiles/tile_129.png" type="Texture" id=6]
+[ext_resource path="res://entities/characters/player/light_occluders/disguise_box_occluder.tres" type="OccluderPolygon2D" id=7]
+[ext_resource path="res://entities/characters/player/collision_shapes/disguise_box_collision_shape.tres" type="Shape2D" id=8]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/GFX/Interface/Fonts/kenvector_future_thin.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+use_filter = true
+font_data = SubResource( 1 )
 
 [node name="Player" groups=[
 "player",
@@ -14,10 +26,40 @@ acceleration = 10.0
 max_speed = 200.0
 friction = 0.1
 player_sprite = ExtResource( 3 )
-disguise_box_sprite = ExtResource( 4 )
+player_occluder = ExtResource( 4 )
+player_collision_shape = ExtResource( 5 )
+disguise_charges = 3
+disguise_duration = 5.0
+disguise_speed_reduction = 0.35
+disguise_box_sprite = ExtResource( 6 )
+disguise_box_occluder = ExtResource( 7 )
+disguise_box_collision_shape = ExtResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 current = true
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = true
+position = Vector2( -0.253499, 0 )
+
+[node name="Light2D" type="Light2D" parent="." index="4"]
+texture = ExtResource( 3 )
+
+[node name="VisionDelay" type="Timer" parent="." index="5"]
+wait_time = 0.5
+one_shot = true
+
+[node name="DisguiseTimer" type="Timer" parent="." index="6"]
+one_shot = true
+
+[node name="DisguiseTimerLabel" type="Label" parent="." index="7"]
+margin_left = 30.0
+margin_top = -65.0
+margin_right = 72.0
+margin_bottom = -38.0
+custom_fonts/font = SubResource( 2 )
+text = "0.0"
+[connection signal="timeout" from="DisguiseTimer" to="." method="_on_DisguiseTimer_timeout"]

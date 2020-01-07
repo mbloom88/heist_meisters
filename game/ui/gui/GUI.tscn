@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/suspicion_container/SuspicionContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/disguise_container/DisguiseContainer.tscn" type="PackedScene" id=2]
 
 [node name="GUI" type="CanvasLayer"]
 
@@ -13,3 +14,9 @@ margin_left = -320.0
 margin_top = -168.0
 margin_right = -20.0
 margin_bottom = -18.0
+
+[node name="DisguiseContainer" parent="." instance=ExtResource( 2 )]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 516.0
+margin_bottom = 166.0

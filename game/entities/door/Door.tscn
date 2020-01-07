@@ -18,8 +18,10 @@ polygon = PoolVector2Array( -32, -9, -32, 9, 32, 9, 32, 8, 32, -9 )
 
 [node name="Door" type="Area2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 script = ExtResource( 1 )
+_player_collision = [ 1, 8 ]
+_npc_collision = [ 4 ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/SETUP = ExtResource( 2 )

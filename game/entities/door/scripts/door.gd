@@ -6,10 +6,13 @@ onready var _audio = $AudioStreamPlayer2D
 onready var _stuck_timer = $StuckNPCTimer
 
 # Door options
-var _can_interact = false
+var _has_player_interacting = false
 var _previous_anim = 'close'
 var _interacting_npcs = []
-var _has_player_interacting = false
+
+# Collision
+export (Array) var _player_collision
+export (Array) var _npc_collision
 
 ################################################################################
 # BUILT-IN VIRTUAL METHODS
@@ -35,23 +38,13 @@ func _input(event):
 func _process(delta):
 	_check_for_stuck_npcs()
 
-#-------------------------------------------------------------------------------
-
-func _ready():
-	_on_ready()
-
 ################################################################################
 # USER-DEFINED VIRTUAL METHODS (FROM BUILT-INS)
 ################################################################################
 
 func _on_input(event):
-	if Input.is_action_just_pressed('interact'):
+	if Input.is_action_just_pressed('interact') and _has_player_interacting:
 		_open()
-
-#-------------------------------------------------------------------------------
-
-func _on_ready():
-	set_process_input(false)
 
 ################################################################################
 # PRIVATE METHODS
@@ -89,10 +82,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 #-------------------------------------------------------------------------------
 
 func _on_Door_body_entered(body):
-	if body.collision_layer == 1:
+	if body.collision_layer in _player_collision:
 		_has_player_interacting = true
-		set_process_input(true)
-	elif body.collision_layer == 4:
+	elif body.collision_layer in _npc_collision:
 		if not _interacting_npcs:
 			set_process(true)
 			_interacting_npcs.append(body)
@@ -104,10 +96,11 @@ func _on_Door_body_entered(body):
 #-------------------------------------------------------------------------------
 
 func _on_Door_body_exited(body):
-	if body.collision_layer == 1:
+	print(body.collision_layer in _npc_collision)
+	
+	if body.collision_layer in _player_collision:
 		_has_player_interacting = false
-		set_process_input(false)
-	elif body.collision_layer == 4 and body in _interacting_npcs:
+	elif body.collision_layer in _npc_collision and body in _interacting_npcs:
 		_interacting_npcs.erase(body)
 	
 	if _interacting_npcs.empty() and not _has_player_interacting:

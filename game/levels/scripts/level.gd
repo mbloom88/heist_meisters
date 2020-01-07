@@ -11,6 +11,7 @@ onready var _map_labels = $MapLabels
 func _ready():
 	_map_labels.toggle_label_visibility()
 	get_tree().call_group('computers', 'assign_new_passcode')
+	get_tree().call_group('player', 'update_disguise_count')
 
 ################################################################################
 # SIGNAL HANDLING

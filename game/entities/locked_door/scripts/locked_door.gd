@@ -8,16 +8,11 @@ onready var _numpad = $CanvasLayer/Numpad
 ################################################################################
 
 func _on_input(event):
-	if Input.is_action_just_pressed('interact'): 
+	if Input.is_action_just_pressed('interact') and _has_player_interacting: 
 		if not _numpad.is_unlocked:
 			_numpad.popup_centered()
 		else:
 			_open()
-
-#-------------------------------------------------------------------------------
-
-func _on_ready():
-	._on_ready()
 
 ################################################################################
 # PUBLIC METHODS
@@ -37,7 +32,7 @@ func set_new_passcode(new_passcode):
 func _on_Door_body_exited(body):
 	._on_Door_body_exited(body) # calls parent script
 	
-	if body.collision_layer == 1:
+	if body.collision_layer in _player_collision:
 		_numpad.hide()
 
 #-------------------------------------------------------------------------------
