@@ -8,6 +8,7 @@ onready var _loot_display = $VBoxContainer/LootDisplay
 ################################################################################
 
 func _ready():
+	hide()
 	_loot_display.clear()
 
 ################################################################################
@@ -15,4 +16,6 @@ func _ready():
 ################################################################################
 
 func update_loot_display(loot_texture):
+	if not visible:
+		show()
 	_loot_display.add_icon_item(loot_texture, false)

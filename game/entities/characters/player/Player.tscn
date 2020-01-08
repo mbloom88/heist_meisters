@@ -9,7 +9,7 @@
 [ext_resource path="res://entities/characters/player/light_occluders/disguise_box_occluder.tres" type="OccluderPolygon2D" id=7]
 [ext_resource path="res://entities/characters/player/collision_shapes/disguise_box_collision_shape.tres" type="Shape2D" id=8]
 
-[node name="Player" groups=[
+[node name="Player" index="0" groups=[
 "player",
 ] instance=ExtResource( 1 )]
 collision_mask = 54

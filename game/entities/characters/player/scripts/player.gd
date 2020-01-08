@@ -147,6 +147,10 @@ func collect_loot(loot_texture):
 #-------------------------------------------------------------------------------
 
 func update_disguise_count():
+	"""
+	Updates the GUI element 'DisguiseDisplay' with the current number of 
+	disguise charges remaining.
+	"""
 	get_tree().call_group('disguise_display', 'update_disguise_count', 
 		disguise_charges)
 
