@@ -96,8 +96,6 @@ func _on_Door_body_entered(body):
 #-------------------------------------------------------------------------------
 
 func _on_Door_body_exited(body):
-	print(body.collision_layer in _npc_collision)
-	
 	if body.collision_layer in _player_collision:
 		_has_player_interacting = false
 	elif body.collision_layer in _npc_collision and body in _interacting_npcs:

@@ -71,6 +71,8 @@ toggle_disguise={
 2d_physics/layer_2="terrain"
 2d_physics/layer_3="npcs"
 2d_physics/layer_4="disguises"
+2d_physics/layer_5="loot"
+2d_physics/layer_6="extraction_point"
 
 [rendering]
 

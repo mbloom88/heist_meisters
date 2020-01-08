@@ -10,7 +10,6 @@ onready var _collision_shape = $CollisionShape2D
 onready var _light = $Light2D
 onready var _vision_delay = $VisionDelay
 onready var _disguise_timer = $DisguiseTimer
-onready var _disguise_label = $DisguiseTimerLabel
 
 # Player
 export (Resource) var player_sprite
@@ -25,6 +24,9 @@ export (Resource) var disguise_box_sprite
 export (Resource) var disguise_box_occluder
 export (Resource) var disguise_box_collision_shape
 var _is_disguised = false
+
+# Loot
+var loot_total = 0 setget , get_loot_total
 
 ################################################################################
 # BUILT-IN VIRTUAL METHODS
@@ -52,7 +54,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	if _is_disguised:
-		_reorient_disguise_label()
+		_update_disguise_timer_label()
 
 #-------------------------------------------------------------------------------
 
@@ -64,8 +66,8 @@ func _ready():
 ################################################################################
 
 func _disguise_player():
+	get_tree().call_group('disguise_timer_label', 'show')
 	_disguise_timer.start()
-	_disguise_label.show()
 	_is_disguised = true
 	disguise_charges -= 1
 	update_disguise_count()
@@ -83,17 +85,19 @@ func _initialize():
 
 #-------------------------------------------------------------------------------
 
-func _reorient_disguise_label():
-	var locked_position = Vector2(position.x + 30, position.y - 65)
-	_disguise_label.rect_global_position = locked_position
-	_disguise_label.rect_rotation = -rotation_degrees
-	_disguise_label.text = str(_disguise_timer.time_left).pad_decimals(2)
+func _update_disguise_timer_label():
+	"""
+	Updates the GUI element 'DisguiseTimerLabel' with the Player and the
+	current DisguiseTimer int value.
+	"""
+	get_tree().call_group('disguise_timer_label', 'update_label', self,
+		_disguise_timer.time_left)
 
 #-------------------------------------------------------------------------------
 
 func _reveal_player():
+	get_tree().call_group('disguise_timer_label', 'hide')
 	_disguise_timer.stop()
-	_disguise_label.hide()
 	_is_disguised = false
 	_sprite.texture = player_sprite
 	_occluder.occluder = player_occluder
@@ -132,9 +136,26 @@ func _update_movement():
 # PUBLIC METHODS
 ################################################################################
 
+func collect_loot(loot_texture):
+	"""
+	Updates the GUI element 'LootTracker' with the texture of the 'Loot' that 
+	was collected.
+	"""
+	loot_total += 1
+	get_tree().call_group('loot_tracker', 'update_loot_display', loot_texture)
+
+#-------------------------------------------------------------------------------
+
 func update_disguise_count():
 	get_tree().call_group('disguise_display', 'update_disguise_count', 
 		disguise_charges)
+
+################################################################################
+# GETTERS
+################################################################################
+
+func get_loot_total():
+	return loot_total
 
 ################################################################################
 # SIGNAL HANDLING
