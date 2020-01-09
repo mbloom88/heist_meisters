@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/victory_screen/themes/victory_screen.theme" type="Theme" id=1]
+[ext_resource path="res://ui/victory_screen/scripts/victory_screen.gd" type="Script" id=2]
+[ext_resource path="res://assets/GFX/Interface/PNG/metalPanel.png" type="Texture" id=3]
+
+[node name="VictoryScreen" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+starting_button = NodePath("Background/VBoxContainer/NextMission")
+
+[node name="Background" type="NinePatchRect" parent="."]
+margin_left = 460.0
+margin_top = 240.0
+margin_right = 1460.0
+margin_bottom = 840.0
+rect_min_size = Vector2( 1000, 600 )
+texture = ExtResource( 3 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/VBoxContainer"]
+margin_top = 84.0
+margin_right = 1000.0
+margin_bottom = 156.0
+text = "Mission Complete!"
+align = 1
+
+[node name="NextMission" type="Button" parent="Background/VBoxContainer"]
+margin_left = 350.0
+margin_top = 176.0
+margin_right = 650.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 300, 100 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Next Mission"
+
+[node name="TryAgain" type="Button" parent="Background/VBoxContainer"]
+margin_left = 350.0
+margin_top = 296.0
+margin_right = 650.0
+margin_bottom = 396.0
+rect_min_size = Vector2( 300, 100 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Try Again"
+
+[node name="Quit" type="Button" parent="Background/VBoxContainer"]
+margin_left = 350.0
+margin_top = 416.0
+margin_right = 650.0
+margin_bottom = 516.0
+rect_min_size = Vector2( 300, 100 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Quit"
+[connection signal="pressed" from="Background/VBoxContainer/NextMission" to="." method="_on_NextMission_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/TryAgain" to="." method="_on_TryAgain_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

@@ -26,6 +26,8 @@ format = 1
 format = 1
 
 [node name="Furniture" type="TileMap" parent="Navigation2D"]
+collision_layer = 2
+collision_mask = 13
 format = 1
 
 [node name="Destinations" type="Node" parent="Navigation2D"]
@@ -54,3 +56,5 @@ script = ExtResource( 6 )
 
 [node name="GUI" parent="." instance=ExtResource( 8 )]
 [connection signal="vision_toggled" from="Player" to="." method="_on_Player_vision_toggled"]
+
+[editable path="GUI"]

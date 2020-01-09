@@ -2,6 +2,7 @@ extends Node
 
 # Levels
 export (PackedScene) var level_001
+var _current_level = ""
 
 ################################################################################
 # PUBLIC METHODS
@@ -13,17 +14,28 @@ func add_new_level(new_level):
 		- new_level (String): The level name.
 	"""
 	if get_children():
-		var old_level = get_child(0)
-		remove_child(old_level)
-		old_level.queue_free()
+		remove_current_level()
 	
-	var next_level = ""
+	var level = null
+	_current_level = new_level
 	
 	match new_level:
 		'level_001':
-			next_level = level_001.instance()
+			level = level_001.instance()
 	
-	add_child(next_level)
+	add_child(level)
+
+#-------------------------------------------------------------------------------
+
+func remove_current_level():
+	var current_level = get_child(0)
+	remove_child(current_level)
+	current_level.queue_free()
+
+#-------------------------------------------------------------------------------
+
+func restart_current_level():
+	add_new_level(_current_level)
 
 #-------------------------------------------------------------------------------
 

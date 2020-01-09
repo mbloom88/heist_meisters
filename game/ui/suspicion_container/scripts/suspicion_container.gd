@@ -1,5 +1,8 @@
 extends NinePatchRect
 
+# Signals
+signal suspicion_maxed
+
 # Child nodes
 onready var _meter = $CenterContainer/HBoxContainer/Meter
 onready var _suspicion_decay = $SuspicionDecayTimer
@@ -8,6 +11,7 @@ onready var _suspicion_decay = $SuspicionDecayTimer
 export (float) var gain = 0
 export (float) var decay = 0
 export (float) var decay_rate
+var _has_suspicion_maxed = false
 
 ################################################################################
 # BUILT-IN VIRTUAL METHODS
@@ -30,10 +34,12 @@ func _initialize():
 ################################################################################
 
 func player_sighted():
-	_meter.value += gain
+	if not _has_suspicion_maxed:
+		_meter.value += gain
 	
-	if _meter.value == _meter.max_value:
-		pass
+		if _meter.value == _meter.max_value:
+			_has_suspicion_maxed = true
+			get_tree().call_group('game_master', 'show_game_over')
 
 ################################################################################
 # SIGNAL HANDLING

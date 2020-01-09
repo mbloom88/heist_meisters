@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/front_screen/scripts/front_screen.gd" type="Script" id=1]
+[ext_resource path="res://ui/game_over_screen/GameOverScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/victory_screen/VictoryScreen.tscn" type="PackedScene" id=3]
+
+[node name="FrontScreen" type="CanvasLayer"]
+script = ExtResource( 1 )
+game_over = ExtResource( 2 )
+victory = ExtResource( 3 )
