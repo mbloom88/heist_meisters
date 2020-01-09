@@ -1,13 +1,8 @@
-extends Node2D
+extends CenterContainer
 
-# Child nodes
-onready var _extraction = $ExtractionPoint
-onready var _vision = $VisionMode
-onready var _loot = $Loot
-onready var _map_labels = $MapLabels
-
-# Level
-export (String) var next_level = ""
+# Button focus
+export (NodePath) var starting_button
+var _current_focus  = null
 
 ################################################################################
 # BUILT-IN VIRTUAL METHODS
@@ -21,20 +16,21 @@ func _ready():
 ################################################################################
 
 func _initialize():
-	_map_labels.toggle_label_visibility()
-	get_tree().call_group('computers', 'assign_new_passcode')
-	get_tree().call_group('player', 'update_disguise_count')
-	_extraction.loot_goal = _loot.get_child_count()
+	get_node(starting_button).grab_focus()
 
 ################################################################################
 # SIGNAL HANDLING
 ################################################################################
 
-func _on_ExtractionPoint_loot_goal_achieved():
-	get_tree().call_group('game_master', 'show_victory', next_level)
+func _on_NewGame_pressed():
+	get_tree().call_group('game_master', 'load_new_game')
 
 #-------------------------------------------------------------------------------
 
-func _on_Player_vision_toggled():
-	_vision.cycle_through_visions()
-	_map_labels.toggle_label_visibility()
+func _on_Quit_pressed():
+	get_tree().quit()
+
+#-------------------------------------------------------------------------------
+
+func _on_Tutorial_pressed():
+	get_tree().call_group('game_master', 'load_tutorial')

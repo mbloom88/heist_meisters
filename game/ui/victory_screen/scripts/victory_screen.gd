@@ -23,7 +23,7 @@ func _initialize():
 ################################################################################
 
 func _on_NextMission_pressed():
-	pass # Replace with function body.
+	get_tree().call_group('game_master', 'start_next_mission')
 
 #-------------------------------------------------------------------------------
 

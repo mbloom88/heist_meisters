@@ -1,5 +1,8 @@
 extends ColorRect
 
+# Signals 
+signal loot_goal_achieved
+
 # Loot
 var loot_goal = 0 setget set_loot_goal
 
@@ -20,4 +23,4 @@ func set_loot_goal(value):
 func _on_Area2D_body_entered(body):
 	if body.collision_layer in _player_collision:
 		if body.loot_total == loot_goal:
-			get_tree().call_group('game_master', 'show_victory')
+			emit_signal('loot_goal_achieved')

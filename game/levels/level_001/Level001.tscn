@@ -53,6 +53,9 @@
 
 [node name="Level001" index="0" instance=ExtResource( 1 )]
 
+[node name="Navigation2D" parent="." index="0"]
+editor/display_folded = true
+
 [node name="Map" parent="Navigation2D" index="0"]
 tile_set = ExtResource( 2 )
 collision_mask = 13
@@ -66,8 +69,6 @@ tile_data = PoolIntArray( 458778, 0, 0, 524314, 0, 0, 524316, 0, 0, 589850, 0, 0
 
 [node name="Furniture" parent="Navigation2D" index="2"]
 tile_set = ExtResource( 4 )
-collision_layer = 2
-collision_mask = 13
 tile_data = PoolIntArray( 458778, -1610612736, 65542, 524314, -1073741824, 65543, 524316, -1073741824, 131076, 589850, -1073741824, 65542, 720909, 0, 4, 720910, 0, 4, 786435, 1610612736, 131076, 786437, 1610612736, 131076, 786439, 1610612736, 131076, 851971, 0, 65542, 851972, 0, 65543, 851973, 0, 65543, 851974, 0, 65543, 851975, 0, 65544, 917507, 0, 131076, 917509, 0, 131076, 917511, 0, 131076 )
 
 [node name="Destinations" parent="Navigation2D" index="3"]
@@ -120,7 +121,6 @@ margin_left = 72.0
 margin_top = 72.0
 margin_right = 392.0
 margin_bottom = 232.0
-loot_goal = 1
 
 [node name="Player" parent="." index="2"]
 position = Vector2( 152, 304 )
@@ -136,6 +136,9 @@ rotation = 1.57079
 position = Vector2( 1408, 751.485 )
 rotation = -1.57079
 
+[node name="Guards" parent="." index="4"]
+editor/display_folded = true
+
 [node name="Guard" parent="Guards" index="0" instance=ExtResource( 6 )]
 position = Vector2( 1310.25, 1152 )
 
@@ -150,6 +153,7 @@ editor/display_folded = true
 
 [node name="Door" parent="Doors" index="0" instance=ExtResource( 7 )]
 position = Vector2( 288, 608 )
+rotation = -3.14159
 
 [node name="Door2" parent="Doors" index="1" instance=ExtResource( 7 )]
 position = Vector2( 288, 416 )
@@ -178,12 +182,10 @@ editor/display_folded = true
 
 [node name="LockedDoor" parent="LockedDoors" index="0" instance=ExtResource( 9 )]
 position = Vector2( 1312, 1056 )
-
-[node name="Loot" parent="." index="8"]
-editor/display_folded = true
+rotation = 3.14159
 
 [node name="Loot" parent="Loot" index="0" instance=ExtResource( 10 )]
-position = Vector2( 288, 936 )
+position = Vector2( 1311.9, 1152 )
 
 [node name="MapLabels" parent="." index="9"]
 editor/display_folded = true

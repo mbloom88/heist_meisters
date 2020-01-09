@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game_master/scripts/game_master.gd" type="Script" id=1]
 [ext_resource path="res://assets/SFX/Music/StealthintheWoods.ogg" type="AudioStream" id=2]
 [ext_resource path="res://game_master/scripts/level_handler.gd" type="Script" id=3]
-[ext_resource path="res://levels/level_001/Level001.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/front_screen/FrontScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/level_000_tutorial/Level000Tutorial.tscn" type="PackedScene" id=4]
+[ext_resource path="res://levels/level_001/Level001.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game_master/scripts/menu_handler.gd" type="Script" id=6]
+[ext_resource path="res://ui/splash_menu/SplashMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/front_screen/FrontScreen.tscn" type="PackedScene" id=8]
 
 [node name="GameMaster" type="Node" groups=[
 "game_master",
@@ -18,6 +21,11 @@ bus = "BGM"
 
 [node name="LevelHandler" type="Node" parent="."]
 script = ExtResource( 3 )
-level_001 = ExtResource( 4 )
+level_000_tutorial = ExtResource( 4 )
+level_001 = ExtResource( 5 )
 
-[node name="FrontScreen" parent="." instance=ExtResource( 5 )]
+[node name="MenuHandler" type="CanvasLayer" parent="."]
+script = ExtResource( 6 )
+splash = ExtResource( 7 )
+
+[node name="FrontScreen" parent="." instance=ExtResource( 8 )]

@@ -1,6 +1,7 @@
 extends Node
 
 # Levels
+export (PackedScene) var level_000_tutorial
 export (PackedScene) var level_001
 var _current_level = ""
 
@@ -20,6 +21,8 @@ func add_new_level(new_level):
 	_current_level = new_level
 	
 	match new_level:
+		'level_000_tutorial':
+			level = level_000_tutorial.instance()
 		'level_001':
 			level = level_001.instance()
 	
@@ -41,3 +44,8 @@ func restart_current_level():
 
 func start_new_game():
 	add_new_level('level_001')
+
+#-------------------------------------------------------------------------------
+
+func start_tutorial():
+	add_new_level('level_000_tutorial')

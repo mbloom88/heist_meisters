@@ -55,6 +55,7 @@ script = ExtResource( 6 )
 [node name="VisionMode" parent="." instance=ExtResource( 7 )]
 
 [node name="GUI" parent="." instance=ExtResource( 8 )]
+[connection signal="loot_goal_achieved" from="ExtractionPoint" to="." method="_on_ExtractionPoint_loot_goal_achieved"]
 [connection signal="vision_toggled" from="Player" to="." method="_on_Player_vision_toggled"]
 
 [editable path="GUI"]

@@ -17,6 +17,7 @@
 
 [node name="Level" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+next_level = "level_001"
 
 [node name="Navigation2D" parent="." index="0"]
 editor/display_folded = true
